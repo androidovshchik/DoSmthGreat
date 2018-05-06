@@ -29,6 +29,8 @@ Folder `Example` contains files needed for app work:
 
 *IMPORTANT!* Copied folder name must be the same as app name (without prefix, *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
+### Description of `data.db` file
+
 #### DDL for table `timeline` (includes tasks)
 
 ```
