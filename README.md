@@ -17,19 +17,85 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 [Download example apk with folder files here](https://github.com/androidovshchik/DoSmthGreat/releases)
 
+Enjoy!
+
 ### Usage example
 
 Folder `Example` contains files needed for app work:
 
 * `notification.(ogg|*)` - sound for notifications (will be *default* if not exists)
-* `data.db` (**required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks)
+* `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks).
+* *ANY other files*, they will be interpreted as actions. Also there is no need to define them in `actions` table (read more below)
 
 *IMPORTANT!* Copied folder name must be the same as app name (without prefix, *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
-Fields:
+#### DDL for table `timeline` (includes tasks)
+
+```
+CREATE TABLE timeline (
+    time VARCHAR (5)  UNIQUE ON CONFLICT ABORT,
+    task VARCHAR (40) NOT NULL ON CONFLICT ABORT,
+    data TEXT         DEFAULT NULL
+);
+```
+> `time` has default time format `HH:MM` and must be unique
+>
+> `task` must be chosen from *list below*
+>
+> `data` additional text to task (needed only for `voice` task to define text to speech)
+
+#### Available tasks:
 
 | Name | Short Description |
 | :------------- |:-------------|
+| `word` |  |
+| `voice` |  |
+| `action` |  |
+| `comment` |  |
+| `upgrade` | Replaced old tables `timeline`, `words` with new |
+
+#### DDL for table `comments`
+
+```
+CREATE TABLE comments (
+    day     VARCHAR (10),
+    message TEXT         NOT NULL ON CONFLICT ABORT
+);
+```
+> `day` has default date format `YYYY-MM-DD` 
+>
+> `message` ypur comment at specified day
+
+*IMPORTANT!* this table is technical and there is no need in filling it with data
+
+#### DDL for table `words`
+
+```
+CREATE TABLE words (
+    word TEXT    NOT NULL ON CONFLICT ABORT,
+    best BOOLEAN NOT NULL ON CONFLICT ABORT
+                 DEFAULT (0) 
+);
+```
+> `word` some text for inspiration :)
+>
+> `best` if true then will be displayed with others on app's start
+
+*IMPORTANT NOTE!* next row for `word` task is random seleted
+
+#### DDL for table `actions`
+
+```
+CREATE TABLE actions (
+    description TEXT NOT NULL ON CONFLICT ABORT,
+    filename    TEXT DEFAULT NULL
+);
+```
+> `description` explains what to do at the time when was appeared
+>
+> `filename` (optional) associated file (may be open by clicking on notification)
+
+*IMPORTANT NOTE!* next row for `action` task is random seleted or may be selected separate file existing in app folder and which has no description in db
 
 ### Customize app for your next purpose
 
