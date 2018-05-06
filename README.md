@@ -61,7 +61,9 @@ Launch new app
 
 ### Tips
 
-Awesome crossplatform program for edit SQLite databases https://sqlitestudio.pl
+- Awesome crossplatform program for edit SQLite databases https://sqlitestudio.pl
+
+- Days in calendar are clickable
 
 ### License
 
