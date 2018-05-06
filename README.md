@@ -89,11 +89,11 @@ CREATE TABLE words (
 
 ```
 CREATE TABLE actions (
-    description TEXT NOT NULL ON CONFLICT ABORT,
-    filename    TEXT DEFAULT NULL
+    description TEXT,
+    filename    TEXT
 );
 ```
-> `description` explains what to do at the time when was appeared
+> `description` (optional) explains what to do at the time when was appeared
 >
 > `filename` (optional) associated file (may be open by clicking on notification)
 
@@ -125,7 +125,7 @@ You are done! :relaxed:
 
 Launch new app
 
-*IMPORTANT NOTE!* if you falied with achievement of purpose then it's better to delete the app and start new. **No fails!** otherwise you will achive nothing
+*IMPORTANT NOTE!* if you failed with achievement of purpose then it's better to delete the app and start new. **No fails!** otherwise you will achive nothing
 
 ### Tips
 
