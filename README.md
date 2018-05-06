@@ -22,7 +22,12 @@ Folder `Example` contains files needed for app work:
 * `notification.(ogg|*)` - sound for notifications (will be *default* if not exists)
 * `data.db` (**required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks)
 
-*IMPORTANT!* Copied folder name must be the same as app name (without *From* and *To* keywords with their dates) and it must be in home directory on external storage
+*IMPORTANT!* Copied folder name must be the same as app name (without prefix, *From* and *To* keywords with their dates) and it must be in home directory on external storage
+
+Fields:
+
+| Name | Short Description |
+| :------------- |:-------------|
 
 ### Customize app for your next purpose
 
@@ -49,6 +54,8 @@ DoPurposeFromDD.MM.YYYYToDD.MM.YYYY
 You are done! :relaxed: 
 
 Launch new app
+
+*IMPORTANT NOTE!* if you falied with achievement of purpose then it's better to delete the app and start new. **No fails!** otherwise you will achive nothing
 
 ### Tips
 
