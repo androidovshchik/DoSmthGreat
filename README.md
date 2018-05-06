@@ -15,7 +15,7 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 ### Binaries
 
-[Download apk here](https://github.com/androidovshchik/DoSmthGreat/releases)
+[Download example apk with folder files here](https://github.com/androidovshchik/DoSmthGreat/releases)
 
 ### Usage example
 
