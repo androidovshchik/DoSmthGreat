@@ -23,7 +23,7 @@ Enjoy!
 
 Folder `Example` contains files needed for app work:
 
-* `notification.(ogg|*)` - sound for notifications (will be *default* if not exists)
+* `notification.(ogg|*)` - sound for notifications (will be *default* if not exists and extension doesn't matter)
 * `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks).
 * *ANY other files*, they will be interpreted as actions. Also there is no need to define them in `actions` table (read more below)
 
@@ -35,14 +35,17 @@ Folder `Example` contains files needed for app work:
 
 ```
 CREATE TABLE timeline (
-    time VARCHAR (5)  UNIQUE ON CONFLICT ABORT,
+    day  INTEGER      DEFAULT NULL,
+    time VARCHAR (5),
     task VARCHAR (40) NOT NULL ON CONFLICT ABORT,
     data TEXT         DEFAULT NULL
 );
 ```
-> `time` has default time format `HH:MM` and must be unique
+> `day` Numerified day of week (1 - 7) in which specified task must be executed (`Null` value means all days)
 >
-> `task` must be chosen from *list below*
+> `time` has default time format `HH:MM`
+>
+> `task` must be chosen from *available list* below
 >
 > `data` additional text to task (needed only for `voice` task to define text to speech)
 
