@@ -15,6 +15,8 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 ### Binaries
 
+[Download apk here](https://github.com/androidovshchik/DoSmthGreat/releases)
+
 ### Usage example
 
 Folder `Example` contains files needed for app work:
