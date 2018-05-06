@@ -55,8 +55,8 @@ CREATE TABLE timeline (
 | :------------- |:-------------|
 | `word` | Shows a prepared word to inspire for next achievements |
 | `voice` | Makes speech with specified text. It must be confirmed otherwise will be repeated every minute until next `voice` task |
-| `action` | Specifies an action to be executed at appearing time. Must be confirmed with a number |
-| `comment` | Makes a short note about your thoughts |
+| `action` | Specifies an action to be executed at appearing time. Must be confirmed with a positive number |
+| `comment` | Offers to write a short note about your thoughts |
 | `upgrade` | Replaces old tables `timeline`, `words` with new |
 
 #### DDL for table `comments`
