@@ -41,13 +41,13 @@ Folder `Example` contains files needed for app work:
 
 ```
 CREATE TABLE timeline (
-    day  INTEGER      DEFAULT NULL,
+    day  VARCHAR (1)  DEFAULT NULL,
     time VARCHAR (5),
     task VARCHAR (40) NOT NULL ON CONFLICT ABORT,
     data TEXT         DEFAULT NULL
 );
 ```
-> `day` Numerified day of week (1 - 7) in which specified task must be executed (`Null` value or not in range means all days)
+> `day` Short name of day **not case-sensitive** (`Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat` or `Sun`) in which specified task must be executed (`Null` value or not in range means all weekdays)
 >
 > `time` has default time format `HH:MM`
 >
@@ -137,7 +137,7 @@ DoPurposeFromDD.MM.YYYYToDD.MM.YYYY
 >
 > `To` (**optional**) - if you think that the purpose is absolutely achieved then set `To` date (this will stop future calculations) and later come back again and again for watching what a great work you have done somewhen
 >
-> `DD.MM.YYYY` (**required only after keyword**) - the date. Comes with keywords (**From** or **To** which **are not** *case-sensitive*)
+> `DD.MM.YYYY` (**required only after keyword**) - the date. Comes with keywords (**From** or **To** which **are not case-sensitive**)
 
 * Copy folder with needed files (also edit SQLite file)
 
@@ -152,6 +152,8 @@ Launch new app
 - Awesome crossplatform program for edit SQLite databases https://sqlitestudio.pl
 
 - Days in calendar are clickable
+
+- Text can be passed with html tags
 
 ### License
 
