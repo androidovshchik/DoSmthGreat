@@ -27,10 +27,11 @@ Folder `Example` contains files needed for app work:
 
 * `notification.(ogg|*)` - sound for notifications (will be *default* if not exists and extension doesn't matter)
 * `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks).
-* `*.mp3` they will be interpreted **ONLY** for `sound` tasks (if are not especially specified in `actions` table).
-* *ANY other files (e.g. images)*, they will be interpreted as actions. Also there is no need to define them in `actions` table because of random selection
+* *ANY other files (e.g. images)*, they will be interpreted as actions. Also there is no need to define them in tables because of random selection
 
-*IMPORTANT!* If custom filename starts with `_` then it will not be random selected (must be specified in `timeline` table)
+*IMPORTANT!* `*.mp3` they will be interpreted in addition for `sound` tasks for random selection
+
+*IMPORTANT!* If custom filename starts with `_` then it will not be random selected
 
 *IMPORTANT!* Copied folder name must be the same as app name (without prefix, *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
@@ -55,7 +56,7 @@ CREATE TABLE timeline (
 > `data` additional information for below tasks:
 > > `word` task: defines the special text to show otherwise random
 > >
-> > `voice` task: defines the text to speech
+> > `voice` task (**required**): defines the text to speech
 > >
 > > `sound` task: defines the *.mp3 file to play otherwise random
 > >
