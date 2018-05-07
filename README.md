@@ -60,7 +60,7 @@ CREATE TABLE timeline (
 > >
 > > `sound` task: defines the *.mp3 file to play otherwise random
 > >
-> > `action` task: defines the special text or file otherwise will be random text from `actions` table and/or file (not starting with `_`)
+> > `action` task: defines the special text or file or both of them divided by separator `/**/` (doesn't matter place) otherwise will be random row from `actions` table or file (not starting with `_`)
 
 #### Available tasks:
 
