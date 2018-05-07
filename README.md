@@ -73,17 +73,21 @@ CREATE TABLE timeline (
 | `comment` | Offers to write a short note about your thoughts |
 | `upgrade` | Replaces old tables `timeline`, `words` with new |
 
-#### DDL for table `comments`
+#### DDL for table `records`
 
 ```
-CREATE TABLE comments (
+CREATE TABLE records (
     day     VARCHAR (10),
-    message TEXT         NOT NULL ON CONFLICT ABORT
+    comment TEXT         NOT NULL ON CONFLICT ABORT,
+    actions INTEGER      NOT NULL ON CONFLICT ABORT
+                         DEFAULT (0)
 );
 ```
 > `day` has default date format `YYYY-MM-DD` 
 >
-> `message` your comment at specified day
+> `comment` your comment at specified day
+>
+> `actions` counts actions per day (by numeric value in notification)
 
 *IMPORTANT!* this table is technical and there is no need in filling it with data
 
