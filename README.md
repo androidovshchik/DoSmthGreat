@@ -33,7 +33,7 @@ Folder `Example` contains files needed for app work:
 
 *IMPORTANT!* If custom filename starts with `_` then it will not be random selected
 
-*IMPORTANT!* Copied folder name must be the same as app name (without prefix, *From* and *To* keywords with their dates) and it must be in home directory on external storage
+*IMPORTANT!* Copied folder name must be the same as app name (**with** prefix if exists, without *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
 ### Description of `data.db` file
 
@@ -60,7 +60,7 @@ CREATE TABLE timeline (
 > >
 > > `sound` task: defines the *.mp3 file to play otherwise random
 > >
-> > `action` task: defines the special text or file or both of them divided by separator `/**/` (doesn't matter place) otherwise will be random row from `actions` table or file (not starting with `_`)
+> > `action` task: defines the special text or file or both of them divided by separator `/**/` (doesn't matter order) otherwise will be random row from `actions` table or file (not starting with `_`)
 
 #### Available tasks:
 
