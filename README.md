@@ -17,6 +17,8 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 [Download example apk with folder files here](https://github.com/androidovshchik/DoSmthGreat/releases)
 
+*IMPORTANT NOTE!* min Android version is Jelly Bean (API 17)
+
 Enjoy!
 
 ### Usage example
@@ -25,7 +27,10 @@ Folder `Example` contains files needed for app work:
 
 * `notification.(ogg|*)` - sound for notifications (will be *default* if not exists and extension doesn't matter)
 * `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks).
-* *ANY other files*, they will be interpreted as actions. Also there is no need to define them in `actions` table (read more below)
+* `*.mp3` they will be interpreted **ONLY** for `sound` tasks (if are not especially specified in `actions` table).
+* *ANY other files (e.g. images)*, they will be interpreted as actions. Also there is no need to define them in `actions` table because of random selection
+
+*IMPORTANT!* If custom filename starts with `_` then it will not be random selected (must be specified in `timeline` table)
 
 *IMPORTANT!* Copied folder name must be the same as app name (without prefix, *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
@@ -41,20 +46,28 @@ CREATE TABLE timeline (
     data TEXT         DEFAULT NULL
 );
 ```
-> `day` Numerified day of week (1 - 7) in which specified task must be executed (`Null` value means all days)
+> `day` Numerified day of week (1 - 7) in which specified task must be executed (`Null` value or not in range means all days)
 >
 > `time` has default time format `HH:MM`
 >
 > `task` must be chosen from *available list* below
 >
-> `data` additional text to task (needed only for `voice` task to define text to speech)
+> `data` additional information for below tasks:
+> > `word` task: defines the special text to show otherwise random
+> >
+> > `voice` task: defines the text to speech
+> >
+> > `sound` task: defines the *.mp3 file to play otherwise random
+> >
+> > `action` task: defines the special text or file otherwise will be random text from `actions` table and/or file (not starting with `_`)
 
 #### Available tasks:
 
 | Name | Description |
 | :------------- |:-------------|
-| `word` | Shows a prepared word to inspire for next achievements |
+| `word` | Shows an word to inspire for next achievements |
 | `voice` | Makes speech with specified text. It must be confirmed otherwise will be repeated every minute until next `voice` task |
+| `sound` | Makes playing chosen song at specified time. No confirmation needed. No repeats |
 | `action` | Specifies an action to be executed at appearing time. Must be confirmed with a positive number |
 | `comment` | Offers to write a short note about your thoughts |
 | `upgrade` | Replaces old tables `timeline`, `words` with new |
@@ -103,7 +116,6 @@ CREATE TABLE actions (
 *IMPORTANT NOTE!* next row for `action` task is random seleted or may be selected separate file existing in app folder and which has no description in db
 
 ### Customize app for your next purpose
-
 
 * In Google Play there is a great app for duplicating intalled apps [App Cloner](https://play.google.com/store/apps/details?id=com.applisto.appcloner)
 * Clone installed e.g. `Example` app with changing it's name (may be also icon to taste). Format of name:
