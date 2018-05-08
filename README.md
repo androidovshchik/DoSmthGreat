@@ -15,9 +15,9 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 ### Binaries
 
-[Download Example apk with folder files to start](https://github.com/androidovshchik/DoSmthGreat/releases)
+[Download `Example apk` with folder files to start usage](https://github.com/androidovshchik/DoSmthGreat/releases)
 
-[Download Sample apk with folder files еo exercise the abdominals](https://github.com/androidovshchik/DoSmthGreat/releases) :muscle:
+[Download `Abdominals` apk with folder files to exercise the abdominals](https://github.com/androidovshchik/DoSmthGreat/releases) :muscle:
 
 *IMPORTANT NOTE!* min Android version is Jelly Bean (API 17)
 
@@ -25,7 +25,7 @@ Enjoy!
 
 ### Usage example
 
-Folder `Example` contains files needed for app work:
+Any folder contains files needed for app work:
 
 * `notification.(ogg|*)` - sound for notifications (will be *default* if not exists and extension doesn't matter)
 * `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks).
@@ -73,6 +73,7 @@ CREATE TABLE timeline (
 | `sound` | Makes playing chosen song at specified time. No confirmation needed. No repeats |
 | `action` | Specifies an action to be executed at appearing time. Must be confirmed with a positive number |
 | `comment` | Offers to write a short note about your thoughts |
+| `result` |  |
 | `upgrade` | Replaces old tables `timeline`, `words` with new |
 
 #### DDL for table `records`
