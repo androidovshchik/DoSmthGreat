@@ -125,7 +125,7 @@ CREATE TABLE actions (
 ### Customize app for your next purpose
 
 * In Google Play there is a great app for duplicating intalled apps [App Cloner](https://play.google.com/store/apps/details?id=com.applisto.appcloner)
-* Clone installed e.g. `Example` app with changing it's name (may be also icon to taste). Format of name:
+* Clone installed e.g. `DoExample` app with changing it's name (may be also icon to taste). Format of name:
 
 ```
 DoPurposeFromDD.MM.YYYYToDD.MM.YYYY
