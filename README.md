@@ -15,9 +15,9 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 ### Binaries
 
-[Download `Example apk` with folder files to start usage](https://github.com/androidovshchik/DoSmthGreat/releases)
+[Download `DoExample.apk` with folder files to start usage](https://github.com/androidovshchik/DoSmthGreat/releases)
 
-[Download `Abdominals` apk with folder files to exercise the abdominals](https://github.com/androidovshchik/DoSmthGreat/releases) :muscle:
+[Download `DoAbdominals.apk` with folder files to exercise the abdominals](https://github.com/androidovshchik/DoSmthGreat/releases) :muscle:
 
 *IMPORTANT NOTE!* min Android version is Jelly Bean (API 17)
 
@@ -73,7 +73,7 @@ CREATE TABLE timeline (
 | `sound` | Makes playing chosen song at specified time. No confirmation needed. No repeats |
 | `action` | Specifies an action to be executed at appearing time. Must be confirmed with a positive number |
 | `comment` | Offers to write a short note about your thoughts |
-| `result` |  |
+| `result` | Prints in notification count of action days, all days and number of all actions were done |
 | `upgrade` | Replaces old tables `timeline`, `words` with new |
 
 #### DDL for table `records`
