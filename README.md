@@ -27,8 +27,8 @@ Enjoy!
 
 Any folder contains files needed for app work:
 
-* `notification.(ogg|*)` - sound for notifications (will be *default* if not exists and extension doesn't matter)
-* `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on upgrade tasks).
+* `notification.ogg` - sound for notifications (will be *default* if not exists and the format must be OGG)
+* `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on refresh in menu).
 * *ANY other files (e.g. images)*, they will be interpreted as actions. Also there is no need to define them in tables because of random selection
 
 *IMPORTANT!* `*.mp3` they will be interpreted in addition for `sound` tasks for random selection
@@ -74,7 +74,6 @@ CREATE TABLE timeline (
 | `action` | Specifies an action to be executed at appearing time. Must be confirmed with a positive number |
 | `comment` | Offers to write a short note about your thoughts |
 | `result` | Prints in notification count of action days, all days and number of all actions were done |
-| `upgrade` | Replaces old tables `timeline`, `words` with new |
 
 #### DDL for table `records`
 
@@ -148,7 +147,7 @@ You are done! :relaxed:
 
 Launch new app
 
-*IMPORTANT NOTE!* if you failed with achievement of purpose then it's better to delete the app and start new. **No fails!** otherwise you will achive nothing
+*NOTE!* if you failed with achievement of purpose then it's better to delete the app and start new. **No fails!** otherwise you will achive nothing
 
 ### Tips
 
