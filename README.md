@@ -15,7 +15,9 @@ So let's plan today a great purpose and getting closer to it everyday! Good luck
 
 ### Binaries
 
-[Download example apk with folder files here](https://github.com/androidovshchik/DoSmthGreat/releases)
+[Download Example apk with folder files to start](https://github.com/androidovshchik/DoSmthGreat/releases)
+
+[Download Sample apk with folder files еo exercise the abdominals](https://github.com/androidovshchik/DoSmthGreat/releases) :muscle:
 
 *IMPORTANT NOTE!* min Android version is Jelly Bean (API 17)
 
@@ -58,7 +60,7 @@ CREATE TABLE timeline (
 > >
 > > `voice` task (**required**): defines the text to speech
 > >
-> > `sound` task: defines the *.mp3 file to play otherwise random
+> > `sound` task: defines any audio file to play otherwise random mp3 file (not starting with `_`)
 > >
 > > `action` task: defines the special text or file or both of them divided by separator `/**/` (doesn't matter order) otherwise will be random row from `actions` table or file (not starting with `_`)
 
@@ -118,7 +120,7 @@ CREATE TABLE actions (
 >
 > `filename` (optional) associated file (may be open by clicking on notification)
 
-*IMPORTANT NOTE!* next row for `action` task is random seleted or may be selected separate file existing in app folder and which has no description in db
+*IMPORTANT NOTE!* next row for `action` task is random selected or may be selected separate file existing in app folder and which has no description in db (but how about describing in filename? :) )
 
 ### Customize app for your next purpose
 
@@ -149,7 +151,7 @@ Launch new app
 
 ### Tips
 
-- Awesome crossplatform program for edit SQLite databases https://sqlitestudio.pl
+- Awesome cross platform program for edit SQLite databases https://sqlitestudio.pl
 
 - Days in calendar are clickable
 
