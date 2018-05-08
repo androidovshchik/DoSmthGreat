@@ -28,16 +28,18 @@ Enjoy!
 Any folder contains files needed for app work:
 
 * `notification.ogg` - sound for notifications (will be *default* if not exists and the format must be OGG)
-* `data.db` (**VERY required**) - SQLite database (it will be copied after accessing read permission and on refresh in menu).
+* `data${VERSION}.db` [e.g. data1.db] (**VERY required**) - SQLite database (it will be copied after accessing read permission and on refresh in menu).
 * *ANY other files (e.g. images)*, they will be interpreted as actions. Also there is no need to define them in tables because of random selection
 
 *IMPORTANT!* `*.mp3` they will be interpreted in addition for `sound` tasks for random selection
+
+*IMPORTANT!* `VERSION` must be similar to android app version to prevent crashes (there is a special item of menu)
 
 *IMPORTANT!* If custom filename starts with `_` then it will not be random selected
 
 *IMPORTANT!* Copied folder name must be the same as app name (**with** prefix if exists, without *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
-### Description of `data.db` file
+### Description of `data${VERSION}.db` file
 
 #### DDL for table `timeline` (includes tasks)
 
@@ -62,7 +64,7 @@ CREATE TABLE timeline (
 > >
 > > `sound` task: defines any audio file to play otherwise random mp3 file (not starting with `_`)
 > >
-> > `action` task: defines the special text or file or both of them divided by separator `/**/` (doesn't matter order) otherwise will be random row from `actions` table or file (not starting with `_`)
+> > `action` task: defines the special text or file or both of them divided by separator `/*/` (doesn't matter order) otherwise will be random row from `actions` table or file (not starting with `_`)
 
 #### Available tasks:
 
