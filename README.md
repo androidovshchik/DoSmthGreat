@@ -9,9 +9,11 @@
 
 A short story... It's hard for me to control my time and works which i must done. So i came up to conclusion about giving such important task for my phone to remind me what i must do at certain time
 
-So let's plan today a great purpose and getting closer to it everyday! Good luck!!! :fist::smile:
+Why there is a task `word`? As for me i think that our words have a great power. So this is the best weapon to fight with oneself first of all.
 
-**PS** Please, never gives up and always be a little bit or *more* better :)
+Let's plan today a great purpose and getting closer to it everyday!
+
+Good luck!!! :fist::smile:
 
 ### Binaries
 
@@ -35,7 +37,7 @@ Any folder contains files needed for app work:
 
 *IMPORTANT!* `VERSION` must be similar to android app version to prevent crashes (there is a special item of menu)
 
-*IMPORTANT!* If custom filename starts with `_` then it will not be random selected
+*IMPORTANT!* If custom filename starts with `_` then it will not be random selected and any `subfolder` containers will be also ignored
 
 *IMPORTANT!* Copied folder name must be the same as app name (**with** prefix if exists, without *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
@@ -70,11 +72,11 @@ CREATE TABLE timeline (
 
 | Name | Description |
 | :------------- |:-------------|
-| `word` | Shows an word to inspire for next achievements |
-| `voice` | Makes speech with specified text. It must be confirmed otherwise will be repeated every minute until next `voice` task |
-| `sound` | Makes playing chosen song at specified time. No confirmation needed. No repeats |
-| `action` | Specifies an action to be executed at appearing time. Must be confirmed with a positive number |
-| `comment` | Offers to write a short note about your thoughts |
+| `word` | Shows words to inspire for next achievements |
+| `voice` | Makes speech with specified text. It must be confirmed (by clicking on notification) otherwise will be repeated every minute |
+| `sound` | Makes playing audio file at specified time. No confirmation needed. No repeats |
+| `action` | Specifies an action to be executed at appearing time. Must be confirmed in app with a positive number after execution |
+| `comment` | Offers to write a short note about your thoughts today dut to primary aim of app |
 | `result` | Prints in notification count of action days, all days and number of all actions were done |
 
 #### DDL for table `records`
@@ -93,7 +95,7 @@ CREATE TABLE records (
 >
 > `actions` counts actions per day (by numeric value in notification)
 
-*IMPORTANT!* this table is technical and there is no need in filling it with data
+*IMPORTANT!* this table is technical and there is no need in filling it with data. In fact this is the only table which has permanent data (except deletion app event and similar)
 
 #### DDL for table `words`
 
@@ -108,7 +110,7 @@ CREATE TABLE words (
 >
 > `best` if true then will be displayed with other *best* words on app start event
 
-*IMPORTANT NOTE!* next row for `word` task is random seleted
+*IMPORTANT NOTE!* next row for `word` task is random selected
 
 #### DDL for table `actions`
 
@@ -126,7 +128,7 @@ CREATE TABLE actions (
 
 ### Customize app for your next purpose
 
-* In Google Play there is a great app for duplicating intalled apps [App Cloner](https://play.google.com/store/apps/details?id=com.applisto.appcloner)
+* In Google Play there is a great app for duplicating installed apps [App Cloner](https://play.google.com/store/apps/details?id=com.applisto.appcloner)
 * Clone installed e.g. `DoExample` app with changing it's name (may be also icon to taste). Format of name:
 
 ```
@@ -151,13 +153,17 @@ Launch new app
 
 *NOTE!* if you failed with achievement of purpose then it's better to delete the app and start new. **No fails!** otherwise you will achive nothing
 
-### Tips
+### Tips and tricks
 
 - Awesome cross platform program for edit SQLite databases https://sqlitestudio.pl
 
 - Days in calendar are clickable
 
 - Text can be passed with html tags
+
+### PS
+
+Please, never gives up and always be a little bit or *more* better :)
 
 ### License
 
