@@ -9,7 +9,9 @@
 
 A short story... It's hard for me to control my time and works which i must done. So i came up to conclusion about giving such important task for my phone to remind me what i must do at certain time
 
-Why there is a task `word`? As for me i think that our words have a great power. So this is the best weapon to fight with oneself first of all.
+Why there is a task `word`? As for me i think that words have a great power. So this is the best weapon to fight with oneself first of all.
+
+And about `actions`. I think it doesn't matter to specify here what action has been done because they must be similar. The primary idea is simplicity and extensibility.
 
 Let's plan today a great purpose and getting closer to it everyday!
 
@@ -17,11 +19,9 @@ Good luck!!! :fist::smile:
 
 ### Binaries
 
-[Download `DoExample.apk` with folder files to start usage](https://github.com/androidovshchik/DoSmthGreat/releases)
+[Download `DoSmthGreat...apk` with folder files to start usage](https://github.com/androidovshchik/DoSmthGreat/releases)
 
-[Download `DoAbdominals.apk` with folder files to exercise the abdominals](https://github.com/androidovshchik/DoSmthGreat/releases) :muscle:
-
-*IMPORTANT NOTE!* min Android version is Jelly Bean (API 17)
+*IMPORTANT NOTE!* min supported Android version is Jelly Bean (API 17)
 
 Enjoy!
 
@@ -35,9 +35,9 @@ Any folder contains files needed for app work:
 
 *IMPORTANT!* `*.mp3` they will be interpreted in addition for `sound` tasks for random selection
 
-*IMPORTANT!* `VERSION` must be similar to android app version to prevent crashes (there is a special item of menu)
+*IMPORTANT!* `VERSION` must be compatible to app for preventing crashes (there is a special item of menu with information)
 
-*IMPORTANT!* If custom filename starts with `_` then it will not be random selected and any `subfolder` containers will be also ignored
+*IMPORTANT!* If custom filename starts with `_` then it will not be random selected. Also any `subfolder` containers will be ignored
 
 *IMPORTANT!* Copied folder name must be the same as app name (**with** prefix if exists, without *From* and *To* keywords with their dates) and it must be in home directory on external storage
 
@@ -91,9 +91,9 @@ CREATE TABLE records (
 ```
 > `day` has default date format `YYYY-MM-DD` 
 >
-> `comment` your comment at specified day
+> `comment` your comment at this day
 >
-> `actions` counts actions per day (by numeric value in notification)
+> `actions` counts actions per day (by clinking `+` buttons in app)
 
 *IMPORTANT!* this table is technical and there is no need in filling it with data. In fact this is the only table which has permanent data (except deletion app event and similar)
 
@@ -161,7 +161,16 @@ Launch new app
 
 - Text can be passed with html tags
 
+### TODO list
+
+- [ ] Make calendar grid system github like which shows action activity for everyday
+- [ ] Make import/export of `records` table (in case of changing phone and etc.)
+- [ ] Add sample apps with great ideas
+- [ ] May be something else?)
+
 ### PS
+
+Big thanks to library https://github.com/nichbar/MonthView
 
 Please, never gives up and always be a little bit or *more* better :)
 
