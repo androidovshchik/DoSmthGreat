@@ -19,15 +19,15 @@ Good luck!!! :fist::smile:
 
 ### Binaries
 
-[Download `DoSmthGreat...apk` with folder files to start usage](https://github.com/androidovshchik/DoSmthGreat/releases)
+[Download](https://github.com/androidovshchik/DoSmthGreat/releases) `DoSmthGreat...apk` with folder files to start usage
+
+About next steps [read here](https://github.com/androidovshchik/DoSmthGreat/wiki)
 
 *IMPORTANT NOTE!* min supported Android version is Jelly Bean (API 17)
 
-Enjoy!
-
 ### How to use
 
-Please read for different version in wiki https://github.com/androidovshchik/DoSmthGreat/wiki
+Please read docs for specific version [on wiki](https://github.com/androidovshchik/DoSmthGreat/wiki)
 
 ### Tips and tricks
 
