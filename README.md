@@ -11,7 +11,7 @@ A short story... It's hard for me to control my time and works which i must done
 
 Why there is a task `word`? As for me i think that words have a great power. So this is the best weapon to fight with oneself first of all.
 
-And about `actions`. I think it doesn't matter to specify here what action has been done because they must be similar. The primary idea is simplicity and extensibility.
+And about `actions`. I think it doesn't matter to specify here what action has been done because they must be similar. The primary idea is simplicity of usage and extensibility of ideas by growing count of apps.
 
 Let's plan today a great purpose and getting closer to it everyday!
 
@@ -166,7 +166,8 @@ Launch new app
 - [ ] Make calendar grid system github like which shows action activity for everyday
 - [ ] Make import/export of `records` table (in case of changing phone and etc.)
 - [ ] Add sample apps with great ideas
-- [ ] May be something else?)
+- [ ] Add more available tasks
+- [ ] Publish on Google Play
 
 ### PS
 
