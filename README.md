@@ -21,9 +21,9 @@ Good luck!!! :fist::smile:
 
 [Download](https://github.com/androidovshchik/DoSmthGreat/releases) `DoSmthGreat...apk` with folder files to start usage
 
-About next steps [read here](https://github.com/androidovshchik/DoSmthGreat/wiki)
+About next steps [read here](https://github.com/androidovshchik/DoSmthGreat/wiki/Customizing-next-app)
 
-*IMPORTANT NOTE!* min supported Android version is Jelly Bean (API 17)
+*IMPORTANT NOTE!* min supported version of Android is 4.2 Jelly Bean (API 17)
 
 ### How to use
 
