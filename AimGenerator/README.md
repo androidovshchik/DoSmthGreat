@@ -1,4 +1,4 @@
-## ApkRenamer
+## AimGenerator
 
 Simple bash script that creates new apps with great aims
 
@@ -12,7 +12,7 @@ Simple bash script that creates new apps with great aims
 
 Also on Mac may be required some changes in main bash script.
 
-Tested only on Linux :heart:
+Tested only on Linux 64bit :heart:
 
 **How to use**
 
@@ -39,3 +39,4 @@ Tested only on Linux :heart:
  Your are done! Copy this folder to device on home dir and install it's apk
 
 [1]: https://github.com/androidovshchik/DoSmthGreat/archive/master.zip
+
