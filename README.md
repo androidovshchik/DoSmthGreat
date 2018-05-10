@@ -19,7 +19,7 @@ Good luck!!! :fist::smile:
 
 ### Binaries
 
-[Download](https://github.com/androidovshchik/DoSmthGreat/releases) `DoSmthGreat...apk` with folder files to start usage
+[Download](https://github.com/androidovshchik/DoSmthGreat/releases) `DoSmthGreat...apk` (latest version recommended) with folder files to start usage
 
 About next steps [read here](https://github.com/androidovshchik/DoSmthGreat/wiki/Customizing-next-app)
 
