@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="weekday_name">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+    <string-array name="action_colors">
+        <!-- From 300 to 700 https://material.io/design/color/the-color-system.html -->
+        <item>#AED581</item>
+        <item>#9CCC65</item>
+        <item>#8BC34A</item>
+        <item>#7CB342</item>
+        <item>#689F38</item>
+    </string-array>
+</resources>

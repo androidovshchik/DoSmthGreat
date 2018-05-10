@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorBackground">#F5F5F5</color>
+    <color name="colorTextBlack">#dd000000</color>
+    <!-- Month view colors -->
+    <color name="nc_default_day_text_color">#333333</color>
+    <color name="nc_default_highlight_day_text_color">#1e89ff</color>
+    <color name="nc_default_weekday_text_color">#666666</color>
+    <color name="nc_default_highlight_color">#bfdfff</color>
+    <color name="nc_default_hint_day_text_color">#999999</color>
+</resources>

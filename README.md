@@ -163,10 +163,11 @@ Launch new app
 
 ### TODO list
 
+- [ ] Make clickable days of calendar to display information
 - [ ] Make calendar grid system github like which shows action activity for everyday
 - [ ] Make import/export of `records` table (in case of changing phone and etc.)
-- [ ] Add sample apps with great ideas
 - [ ] Add more available tasks
+- [ ] Add sample apps with great ideas
 - [ ] Publish on Google Play
 
 ### PS
