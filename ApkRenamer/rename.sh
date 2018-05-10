@@ -7,14 +7,16 @@ apks=`ls ./*.apk`
 for apk in $apks
 do
    echo \> Found base apk \"$apk\"
-   package=rf.androidovshchik.do`date | md5sum | cut -c1-22`
+   package=rf.androidovshchik.do`date | md5sum | cut -c1-18`
    echo \> It\'s new package name is $package
    echo \> It\'s new app name is \"$1\"
+   echo \> Decompiling base apk
    java -jar ./tools/apktool_2.3.3.jar d -s -f -o ./temp $apk 2>/dev/null
    sed -i "s/renameManifestPackage: null/renameManifestPackage: $package/g" ./temp/apktool.yml
    sed -i "s/@string\/app_name/$1/g" ./temp/AndroidManifest.xml
    echo \> Clearing renamed folder
    rm -rf ./renamed/*
+   echo \> Building new apk
    java -jar ./tools/apktool_2.3.3.jar b -o ./renamed/temp.apk ./temp 2>/dev/null
    echo \> Signing new apk
    java -jar ./tools/uber-apk-signer-0.8.4.jar -a ./renamed --ks ./certificate.jks \
