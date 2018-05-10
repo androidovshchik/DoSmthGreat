@@ -2,6 +2,12 @@
 
 Simple bash script that creates new apk file with a great aim
 
+**Requirements**
+
+* Oracle JDK 8+
+
+* Currently on Linux 32bit: zipalign must be set in PATH
+
 **How to use**
 
  1. [Download][1] or clone the project:
