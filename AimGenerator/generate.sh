@@ -14,7 +14,7 @@ for apk in $apks
 do
    mkdir -p "$1"
    echo \> Found base apk \"$apk\"
-   packageName=rf.androidovshchik.do`date | md5sum | cut -c1-18`
+   packageName=`echo "rf.androidovshchik.i$1" | sed "s/[^a-zA-Z0-9.]/d/g" | tr 'A-Z' 'a-z'`
    echo \> New package name is $packageName
    echo \> New app name is \"$appName\"
    echo \> Decompiling base apk
@@ -24,8 +24,8 @@ do
    echo \> Building new apk
    java -jar ./tools/apktool_2.3.3.jar b -o "./$1/temp.apk" ./temp 2>/dev/null
    echo \> Signing new apk
-   java -jar ./tools/uber-apk-signer-0.8.4.jar -a "./$1" --ks ./certificate.jks --ksAlias DoAlias \
-       --ksPass DoPassword --ksKeyPass DoPassword >/dev/null
+   java -jar ./tools/uber-apk-signer-0.8.4.jar -a "./$1" --allowResign --ks ./certificate.jks \
+       --ksAlias DoAlias --ksPass DoPassword --ksKeyPass DoPassword >/dev/null
    echo \> Removing extra files
    mv "./$1/temp-aligned-signed.apk" "./$1/_$appName.apk"
    rm "./$1/temp.apk"
