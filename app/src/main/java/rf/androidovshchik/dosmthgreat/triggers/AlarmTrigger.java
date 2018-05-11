@@ -23,13 +23,12 @@ public abstract class AlarmTrigger extends BroadcastReceiver {
             Timber.w("It's a pity");
             return;
         }
-        AlarmUtil.setupNextAlarm(context, getClass());
+        Task task;
         Preferences preferences = new Preferences(context);
         if (preferences.has(Preferences.EXECUTE_TASK)) {
             Gson gson = new GsonBuilder()
                 .serializeNulls()
                 .create();
-            Task task;
             try {
                 task = gson.fromJson(preferences.getString(Preferences.EXECUTE_TASK), Task.class);
             } catch (JsonSyntaxException e) {
@@ -37,11 +36,14 @@ public abstract class AlarmTrigger extends BroadcastReceiver {
                 task = null;
             }
             preferences.remove(Preferences.EXECUTE_TASK);
-            if (task != null) {
-                onHavingTask(context, task);
-            }
         } else {
             Timber.w("Not task found on service trigger");
+            task = null;
+        }
+        // here may be will be created a new task
+        AlarmUtil.setup(context, getClass());
+        if (task != null) {
+            onHavingTask(context, task);
         }
     }
 
