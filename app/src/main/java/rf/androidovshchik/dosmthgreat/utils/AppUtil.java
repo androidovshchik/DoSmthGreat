@@ -20,6 +20,7 @@ public class AppUtil {
 
     @NonNull
     public static String getName(Context context) {
+        // assumed that correct order here (from before to)
         return getLabel(context).split("From")[0];
     }
 
