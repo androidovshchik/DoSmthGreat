@@ -28,6 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daasuu.cat.CountAnimationTextView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -162,8 +165,7 @@ public class MainActivity extends AppCompatActivity {
             int admobCount = preferences.getInt(Preferences.ADMOB_COUNT);
             if (admobCount >= 9 || admobCount < 0) {
                 admobCount = 0;
-                new Handler().postDelayed(() ->
-                    startActivity(new Intent(getApplicationContext(), InterstitialActivity.class)), 3000);
+                new Handler().postDelayed(this::showAd, 3000);
             } else {
                 admobCount++;
             }
@@ -464,6 +466,30 @@ public class MainActivity extends AppCompatActivity {
                 });
                 alertDialog.show();
             }));
+    }
+
+    private void showAd() {
+        InterstitialAd interstitialAd = new InterstitialAd(getApplicationContext());
+        interstitialAd.setAdUnitId("ca-app-pub-3898038055741115/5362686364");
+        interstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                }
+            }
+        });
+        if (BuildConfig.DEBUG) {
+            interstitialAd.loadAd(new AdRequest.Builder()
+                .addTestDevice("BD1C60E379701FB989CE8D2BDBEE9501")
+                .addTestDevice("FAA1BA6958CC85BA6B1B0483BE321991")
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build());
+        } else {
+            interstitialAd.loadAd(new AdRequest.Builder()
+                .build());
+        }
     }
 
     @Override
