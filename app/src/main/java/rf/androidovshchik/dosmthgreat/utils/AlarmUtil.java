@@ -89,25 +89,24 @@ public class AlarmUtil {
         if (now == null) {
             return HOURS_24;
         }
-        //System.out.println("now is " + now.getTime() / 1000 / 60/ 60);
+        boolean hasValidTasks = false;
         for (Task task: tasks) {
             Date time = fixedDate(task.time, task.day != null ? task.day : dayOfWeek);
-            //System.out.println("time is " + time.getTime() / 1000 / 60/ 60);
             if (time == null) {
                 continue;
             }
-            delay = MAX_DELAY;
+            hasValidTasks = true;
             if (time.after(now)) {
                 delay = time.getTime() - now.getTime();
             } else if (time.before(now)) {
                 if (task.day != null) {
                     delay = MAX_DELAY - now.getTime() + time.getTime();
-                    //System.out.println("MAX_DELAY is " + MAX_DELAY / 1000 / 60/ 60);
-                    //System.out.println("delay is " + delay / 1000 / 60/ 60);
                 } else {
                     // now and time with equals offset => offset will be zero
                     delay = HOURS_24 - now.getTime() + time.getTime();
                 }
+            } else {
+                delay = task.day != null ? MAX_DELAY : HOURS_24;
             }
             if (delay < minDelay) {
                 minDelay = delay;
@@ -117,7 +116,7 @@ public class AlarmUtil {
                 }
             }
         }
-        return minDelay == MAX_DELAY ? HOURS_24 : minDelay;
+        return hasValidTasks ? minDelay : HOURS_24;
     }
 
     @Nullable

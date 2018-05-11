@@ -41,9 +41,32 @@ public class AlarmUtilUnitTest {
         assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
             21 * AlarmUtil.HOUR);
         tasks.clear();
+        tasks.add(newFakeTask(null, "16:00"));
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            AlarmUtil.HOUR);
+        tasks.clear();
         tasks.add(newFakeTask("Fri", "12:00"));
         assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
             6 * AlarmUtil.HOURS_24 + 21 * AlarmUtil.HOUR);
+        tasks.clear();
+        tasks.add(newFakeTask("Sat", "15:00"));
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            AlarmUtil.HOURS_24);
+        tasks.clear();
+        // bad formatted
+        tasks.add(newFakeTask(null, "1t:00"));
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            AlarmUtil.HOURS_24);
+        tasks.clear();
+        // equal time only
+        tasks.add(newFakeTask(null, "15:00"));
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            AlarmUtil.HOURS_24);
+        tasks.clear();
+        // equal time and day
+        tasks.add(newFakeTask("Fri", "15:00"));
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            AlarmUtil.MAX_DELAY);
         tasks.clear();
     }
 
@@ -54,6 +77,7 @@ public class AlarmUtilUnitTest {
         return task;
     }
 
+    @SuppressWarnings("all")
     private Calendar getFakeCalendar(String dateTime) {
         Calendar calendar = Calendar.getInstance();
         try {
