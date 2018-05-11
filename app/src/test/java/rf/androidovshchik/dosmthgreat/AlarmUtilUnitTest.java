@@ -33,11 +33,18 @@ public class AlarmUtilUnitTest {
         assertTrue(date24.getTime() == AlarmUtil.MAX_DELAY);
     }
 
-    //@Test
-    public void nextAlarm() {
+    @Test
+    public void nextDelay() {
+        // 2018-05-11 is Friday
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(newFakeTask(null, "12:00"));
-        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")), 0);
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            21 * AlarmUtil.HOUR);
+        tasks.clear();
+        tasks.add(newFakeTask("Fri", "12:00"));
+        assertEquals(AlarmUtil.delay(null, tasks, getFakeCalendar("2018-05-11 15:00")),
+            6 * AlarmUtil.HOURS_24 + 21 * AlarmUtil.HOUR);
+        tasks.clear();
     }
 
     private Task newFakeTask(@Nullable String day, @NonNull String time) {

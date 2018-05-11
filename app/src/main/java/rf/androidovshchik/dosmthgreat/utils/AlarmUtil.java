@@ -34,7 +34,9 @@ public class AlarmUtil {
 
     public static final long MINUTE = 60 * 1000L;
 
-    public static final long HOURS_24 = 24 * 60 * MINUTE;
+    public static final long HOUR = 60 * MINUTE;
+
+    public static final long HOURS_24 = 24 * HOUR;
 
     public static final long MAX_DELAY = 7 * HOURS_24;
 
@@ -80,15 +82,17 @@ public class AlarmUtil {
         Gson gson = new GsonBuilder()
             .serializeNulls()
             .create();
-        long minDelay = HOURS_24, delay;
+        long minDelay = MAX_DELAY, delay;
         String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
         Date now = fixedDate(String.format(Locale.ENGLISH, "%02d:%02d",
             calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)), dayOfWeek);
         if (now == null) {
-            return minDelay;
+            return HOURS_24;
         }
+        //System.out.println("now is " + now.getTime() / 1000 / 60/ 60);
         for (Task task: tasks) {
             Date time = fixedDate(task.time, task.day != null ? task.day : dayOfWeek);
+            //System.out.println("time is " + time.getTime() / 1000 / 60/ 60);
             if (time == null) {
                 continue;
             }
@@ -98,6 +102,8 @@ public class AlarmUtil {
             } else if (time.before(now)) {
                 if (task.day != null) {
                     delay = MAX_DELAY - now.getTime() + time.getTime();
+                    //System.out.println("MAX_DELAY is " + MAX_DELAY / 1000 / 60/ 60);
+                    //System.out.println("delay is " + delay / 1000 / 60/ 60);
                 } else {
                     // now and time with equals offset => offset will be zero
                     delay = HOURS_24 - now.getTime() + time.getTime();
@@ -111,7 +117,7 @@ public class AlarmUtil {
                 }
             }
         }
-        return minDelay;
+        return minDelay == MAX_DELAY ? HOURS_24 : minDelay;
     }
 
     @Nullable
