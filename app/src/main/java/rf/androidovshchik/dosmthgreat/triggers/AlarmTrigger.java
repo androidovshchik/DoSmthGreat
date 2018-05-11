@@ -18,6 +18,7 @@ import timber.log.Timber;
 public abstract class AlarmTrigger extends BroadcastReceiver {
 
     @Override
+    @SuppressWarnings("all")
     public void onReceive(Context context, Intent intent) {
         if (!AppUtil.isAimAlive(context)) {
             Timber.w("It's a pity");
@@ -33,18 +34,21 @@ public abstract class AlarmTrigger extends BroadcastReceiver {
                 task = gson.fromJson(preferences.getString(Preferences.EXECUTE_TASK), Task.class);
             } catch (JsonSyntaxException e) {
                 Timber.e(e);
-                task = null;
+                AlarmUtil.setup(context, getClass())
+                    .subscribe();
+                return;
             }
             preferences.remove(Preferences.EXECUTE_TASK);
         } else {
             Timber.w("Not task found on service trigger");
             task = null;
         }
-        // here may be will be created a new task
-        AlarmUtil.setup(context, getClass());
-        if (task != null) {
-            onHavingTask(context, task);
-        }
+        AlarmUtil.setup(context, getClass())
+            .subscribe((Boolean value) -> {
+                if (task != null) {
+                    onHavingTask(context, task);
+                }
+            });
     }
 
     @WorkerThread

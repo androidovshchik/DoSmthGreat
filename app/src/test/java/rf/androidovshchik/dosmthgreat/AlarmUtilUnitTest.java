@@ -25,12 +25,12 @@ public class AlarmUtilUnitTest {
     @Test
     @SuppressWarnings("all")
     public void fixedDate() {
-        Date date0 = AlarmUtil.fixedDate("00:00");
+        Date date0 = AlarmUtil.fixedDate("00:00", "Mon");
         System.out.println("date0: " + date0.getTime());
         assertTrue(date0.getTime() == 0L);
-        Date date24 = AlarmUtil.fixedDate("24:00");
+        Date date24 = AlarmUtil.fixedDate("24:00", "Sun");
         System.out.println("date24: " + date24.getTime());
-        assertTrue(date24.getTime() == AlarmUtil.HOURS_24);
+        assertTrue(date24.getTime() == AlarmUtil.MAX_DELAY);
     }
 
     //@Test

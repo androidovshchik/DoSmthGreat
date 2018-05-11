@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
@@ -37,8 +38,8 @@ public class AlarmUtil {
 
     public static final long MAX_DELAY = 7 * HOURS_24;
 
-    public static void setup(Context context, Class<?> clss) {
-        Observable.fromCallable(() -> {
+    public static Observable<Boolean> setup(Context context, Class<?> clss) {
+        return Observable.fromCallable(() -> {
             DbManager manager = new DbManager();
             if (!manager.openDb(context, DbCallback.BASE_NAME)) {
                 Timber.w("Cannot handle open db");
@@ -59,8 +60,7 @@ public class AlarmUtil {
             manager.closeDb();
             next(context, tasks, clss);
             return true;
-        }).subscribeOn(Schedulers.io())
-            .subscribe();
+        }).subscribeOn(Schedulers.io());
     }
 
     @SuppressWarnings("all")
@@ -76,53 +76,55 @@ public class AlarmUtil {
             clss.getSimpleName());
     }
 
-    @SuppressWarnings("all")
     public static long delay(@Nullable Preferences preferences, ArrayList<Task> tasks, Calendar calendar) {
         Gson gson = new GsonBuilder()
             .serializeNulls()
             .create();
-        long minDelay = HOURS_24, delay, defDelay = offset(calendar.getDisplayName(Calendar.DAY_OF_WEEK,
-            Calendar.SHORT, Locale.ENGLISH));
-        try {
-            Date now = FORMAT.parse(String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE)));
-            for (Task task: tasks) {
-                if (task.time == null) {
-                    continue;
-                }
-                delay = MAX_DELAY;
-                Date time = FORMAT.parse(String.format("%s %s", task.day == null ?
-                    "" : task.day , task.time));
+        long minDelay = HOURS_24, delay;
+        String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH);
+        Date now = fixedDate(String.format(Locale.ENGLISH, "%02d:%02d",
+            calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)), dayOfWeek);
+        if (now == null) {
+            return minDelay;
+        }
+        for (Task task: tasks) {
+            Date time = fixedDate(task.time, task.day != null ? task.day : dayOfWeek);
+            if (time == null) {
+                continue;
+            }
+            delay = MAX_DELAY;
+            if (time.after(now)) {
+                delay = time.getTime() - now.getTime();
+            } else if (time.before(now)) {
                 if (task.day != null) {
-
-                }
-                if (time.after(now)) {
-                    delay = time.getTime() - now.getTime();
-                } else if (time.before(now)) {
+                    delay = MAX_DELAY - now.getTime() + time.getTime();
+                } else {
+                    // now and time with equals offset => offset will be zero
                     delay = HOURS_24 - now.getTime() + time.getTime();
                 }
-                if (delay < minDelay) {
-                    minDelay = delay;
-                    // only for test purpose null case
-                    if (preferences != null) {
-                        preferences.putString(Preferences.EXECUTE_TASK, gson.toJson(task));
-                    }
+            }
+            if (delay < minDelay) {
+                minDelay = delay;
+                // only for test purpose null case
+                if (preferences != null) {
+                    preferences.putString(Preferences.EXECUTE_TASK, gson.toJson(task));
                 }
             }
-        } catch (ParseException e) {
-            Timber.e(e);
-            return HOURS_24;
         }
         return minDelay;
     }
 
-    public static Date fixedDate(String time) {
+    @Nullable
+    public static Date fixedDate(@Nullable String time, @NonNull String dayOfWeek) {
+        if (time == null) {
+            return null;
+        }
         try {
             Date date = AlarmUtil.FORMAT.parse(time);
-            date.setTime(date.getTime() + 3 * 60 * AlarmUtil.MINUTE);
+            date.setTime(date.getTime() + 3 * 60 * AlarmUtil.MINUTE + offset(dayOfWeek));
             return date;
         } catch (ParseException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return null;
     }

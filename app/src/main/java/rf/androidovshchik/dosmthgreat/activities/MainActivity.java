@@ -283,7 +283,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!hasSetupNextAlarm) {
                     // after all ui setup on start
                     hasSetupNextAlarm = true;
-                    AlarmUtil.setup(getApplicationContext(), MainActivity.class);
+                    AlarmUtil.setup(getApplicationContext(), MainActivity.class)
+                        .subscribe();
                 }
             }));
     }
