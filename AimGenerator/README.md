@@ -24,7 +24,7 @@ Tested only on Linux 64bit :heart:
 
  3. Create a folder with desired app name e.g. `DoNewAwesomeAim`
 
- 4. Fill it (or later) with content e.g. data${VERSION}.db with notification.ogg. Edit them at any time
+ 4. Fill it (or later) with content e.g. `data${VERSION}.db` with `notification.ogg`. Edit them at any time
 
  5. Run script `sh generate.sh "DoNewAwesomeAim" "DD.MM.YYYY" "DD.MM.YYYY"` where:
 
@@ -36,7 +36,9 @@ Tested only on Linux 64bit :heart:
 
  6. Look at `DoNewAwesomeAim` folder :smile: for `_DoMyAwesomeAim[FromDD.MM.YYYY][ToDD.MM.YYYY].apk`
 
- Your are done! Copy this folder to device on home dir and install it's apk
+Your are done! Copy this folder to device on home dir and install it's apk
+
+*Note!* the package name depends on folder name. So if there will be later a new version of apk then it's easy to update an existing app without deletion of data
 
 [1]: https://github.com/androidovshchik/DoSmthGreat/archive/master.zip
 
