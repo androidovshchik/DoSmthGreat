@@ -49,7 +49,6 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import rf.androidovshchik.dosmthgreat.BuildConfig;
-import rf.androidovshchik.dosmthgreat.MainApplication;
 import rf.androidovshchik.dosmthgreat.R;
 import rf.androidovshchik.dosmthgreat.adapters.PagerAdapter;
 import rf.androidovshchik.dosmthgreat.data.DbCallback;
@@ -59,6 +58,7 @@ import rf.androidovshchik.dosmthgreat.models.Record;
 import rf.androidovshchik.dosmthgreat.models.Row;
 import rf.androidovshchik.dosmthgreat.models.Word;
 import rf.androidovshchik.dosmthgreat.services.UpgradeService;
+import rf.androidovshchik.dosmthgreat.utils.AlarmUtil;
 import rf.androidovshchik.dosmthgreat.utils.AppUtil;
 import rf.androidovshchik.dosmthgreat.utils.ServiceUtil;
 import rf.androidovshchik.dosmthgreat.utils.ViewUtil;
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!hasSetupNextAlarm) {
                     // after all ui setup on start
                     hasSetupNextAlarm = true;
-                    MainApplication.setupNextAlarm(getApplicationContext(), MainActivity.class);
+                    AlarmUtil.setupNextAlarm(getApplicationContext(), MainActivity.class);
                 }
             }));
     }

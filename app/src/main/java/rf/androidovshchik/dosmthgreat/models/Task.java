@@ -5,28 +5,13 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import io.reactivex.annotations.Nullable;
-import rf.androidovshchik.dosmthgreat.data.Preferences;
-import timber.log.Timber;
 
 public class Task extends Row implements Parcelable {
-
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("EEE HH:mm", Locale.ENGLISH);
-
-    public static final long MINUTE = 60 * 1000L;
-    public static final long HOURS_24 = 24 * 60 * MINUTE;
 
     public static final String TYPE_WORD = "word";
     public static final String TYPE_VOICE = "voice";
@@ -120,42 +105,6 @@ public class Task extends Row implements Parcelable {
         dest.writeValue(time);
         dest.writeValue(task);
         dest.writeValue(data);
-    }
-
-    @SuppressWarnings("all")
-    public static long nextDelayFromNow(Preferences preferences, ArrayList<Task> tasks) {
-        Gson gson = new GsonBuilder()
-            .serializeNulls()
-            .create();
-        long minDelay = HOURS_24, delay;
-        Calendar calendar = Calendar.getInstance();
-        String dayName = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
-            Locale.ENGLISH);
-        try {
-            Date now = FORMAT.parse(String.format("%s %02d:%02d", dayName,
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
-            for (Task task: tasks) {
-                if (task.time == null) {
-                    continue;
-                }
-                delay = HOURS_24;
-                Date time = FORMAT.parse(String.format("%s %s", task.day == null ?
-                    dayName : task.day , task.time));
-                if (time.after(now)) {
-                    delay = time.getTime() - now.getTime();
-                } else if (time.before(now)) {
-                    delay = HOURS_24 - now.getTime() + time.getTime();
-                }
-                if (delay < minDelay) {
-                    minDelay = delay;
-                    preferences.putString(Preferences.EXECUTE_TASK, gson.toJson(task));
-                }
-            }
-        } catch (ParseException e) {
-            Timber.e(e);
-            return HOURS_24;
-        }
-        return minDelay;
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {

@@ -1,26 +1,17 @@
 package rf.androidovshchik.dosmthgreat;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.squareup.sqlbrite3.BriteDatabase;
+import com.google.android.gms.ads.MobileAds;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
-import java.util.ArrayList;
-
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
-import rf.androidovshchik.dosmthgreat.data.DbCallback;
-import rf.androidovshchik.dosmthgreat.data.DbManager;
-import rf.androidovshchik.dosmthgreat.data.Preferences;
-import rf.androidovshchik.dosmthgreat.models.Task;
-import rf.androidovshchik.dosmthgreat.utils.AlarmUtil;
 import timber.log.Timber;
 
+@SuppressWarnings("all")
 @ReportsCrashes(mailTo = "vladkalyuzhnyu@gmail.com",
     customReportContent = {
         ReportField.APP_VERSION_CODE,
@@ -52,33 +43,8 @@ public class MainApplication extends Application {
             Timber.plant(new Timber.DebugTree());
         } else {
             ACRA.init(this);
+            MobileAds.initialize(getApplicationContext(), "ca-app-pub-3898038055741115~9698475056");
         }
         StethoTool.init(getApplicationContext());
-    }
-
-    public static void setupNextAlarm(Context context, Class<?> clss) {
-        Observable.fromCallable(() -> {
-            DbManager manager = new DbManager();
-            if (!manager.openDb(context, DbCallback.BASE_NAME)) {
-                Timber.w("Cannot handle open db on reboot");
-                return false;
-            }
-            ArrayList<Task> tasks = new ArrayList<>();
-            BriteDatabase.Transaction transaction = manager.db.newTransaction();
-            try {
-                tasks.addAll(Task.getRows(manager.db.query("SELECT rowid, * FROM timeline"),
-                    Task.class));
-                transaction.markSuccessful();
-            } catch (Exception e) {
-                Timber.e(e);
-                return false;
-            } finally {
-                transaction.end();
-            }
-            manager.closeDb();
-            AlarmUtil.next(context, Task.nextDelayFromNow(new Preferences(context), tasks), clss);
-            return true;
-        }).subscribeOn(Schedulers.io())
-            .subscribe();
     }
 }

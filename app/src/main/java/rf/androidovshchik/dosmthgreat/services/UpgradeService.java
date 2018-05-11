@@ -10,7 +10,6 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import rf.androidovshchik.dosmthgreat.data.DbCallback;
 import rf.androidovshchik.dosmthgreat.data.DbManager;
-import rf.androidovshchik.dosmthgreat.data.Preferences;
 import rf.androidovshchik.dosmthgreat.models.Action;
 import rf.androidovshchik.dosmthgreat.models.Task;
 import rf.androidovshchik.dosmthgreat.models.Word;
@@ -73,8 +72,7 @@ public class UpgradeService extends ForegroundService {
             } finally {
                 transaction.end();
             }
-            AlarmUtil.next(getApplicationContext(), Task.nextDelayFromNow(new Preferences(getApplicationContext()),
-                tasks), UpgradeService.class);
+            AlarmUtil.next(getApplicationContext(), tasks, UpgradeService.class);
             stopWork();
             return true;
         }).subscribeOn(Schedulers.io())
