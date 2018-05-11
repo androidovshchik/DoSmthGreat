@@ -20,13 +20,13 @@ Tested only on Linux 64bit :heart:
 
     `git clone https://github.com/androidovshchik/DoSmthGreat.git`
 
- 2. Then put *base apk* `DoSmthGreat...apk` (latest version recommended) in ./AimGenerator/
+ 2. Then put *base apk* `DoSmthGreat...apk` (latest version recommended) in `./AimGenerator/`
 
  3. Create a folder with desired app name e.g. `DoNewAwesomeAim`
 
  4. Fill it (or later) with content e.g. data${VERSION}.db with notification.ogg. Edit them at any time
 
- 5. Run script `sh generate.sh "DoNewAwesomeAimFrom" "DD.MM.YYYY" "DD.MM.YYYY"` where:
+ 5. Run script `sh generate.sh "DoNewAwesomeAim" "DD.MM.YYYY" "DD.MM.YYYY"` where:
 
 > 1-st arg (required): folder name
 >
