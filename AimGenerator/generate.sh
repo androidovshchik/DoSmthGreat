@@ -18,7 +18,7 @@ alias=`echo "$1" | sed "s/[^a-zA-Z0-9.]/d/g" | tr 'A-Z' 'a-z'`
 packageName=rf.androidovshchik.i$alias
 echo \> New package name is $packageName
 echo \> New app name is \"$appName\"
-if [ $iam != "vlad1" ]; then
+if [ $iam != "vlad" ]; then
     echo \> New alias, store and key passwords is \"$alias\"
 fi
 echo \> Setting configuration
@@ -26,11 +26,13 @@ cd ..
 cp -f app/buildCopyForAimGenerator.txt app/build.gradle
 sed -i "s/rf.androidovshchik.dosmthgreat/$packageName/g" app/build.gradle
 sed -i "s/DoSmthGreat/$appName/g" app/build.gradle
-if [ $iam = "vlad1" ]; then
+if [ $iam = "vlad" ]; then
     echo \> Building new debug apk
     ./gradlew assembleDebug 2>/dev/null | grep -F ":app:"
     echo \> Moving files
     cp -f app/buildCopyForAimGenerator.txt app/build.gradle
+    apk=`ls app/build/outputs/apk/debug | grep "^_$appName.*\.apk$"`
+    mv "app/build/outputs/apk/debug/$apk" "AimGenerator/$1"
 else
     echo \> Generating certificate
     rm -f app/certificate.jks
@@ -45,5 +47,5 @@ else
     mv "app/release/$appName-mapping.txt" "AimGenerator/$1/_$appName-mapping.txt"
     apk=`ls app/build/outputs/apk/release | grep "^_$appName.*\.apk$"`
     mv "app/build/outputs/apk/release/$apk" "AimGenerator/$1"
-    echo \> All is done
 fi
+echo \> All is done
