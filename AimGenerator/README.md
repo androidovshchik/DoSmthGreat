@@ -2,9 +2,13 @@
 
 Simple bash script that creates new apps with great aims
 
+Apktool and other ways not fully renamed package. So the only easy way is to change it in sources
+
 **Requirements**
 
 * Oracle JDK 8+
+
+* Android SDK
 
 * Currently on Linux 32bit: zipalign must be set in PATH
 
@@ -20,13 +24,11 @@ Tested only on Linux 64bit :heart:
 
     `git clone https://github.com/androidovshchik/DoSmthGreat.git`
 
- 2. Then put *base apk* `DoSmthGreat...apk` (latest version recommended) in `./AimGenerator/`
+ 2. Create a folder with desired app name e.g. `DoNewAwesomeAim`
 
- 3. Create a folder with desired app name e.g. `DoNewAwesomeAim`
+ 3. Fill it (or later) with content e.g. `data${VERSION}.db` with `notification.ogg`. Edit them at any time
 
- 4. Fill it (or later) with content e.g. `data${VERSION}.db` with `notification.ogg`. Edit them at any time
-
- 5. Run script `sh generate.sh "DoNewAwesomeAim" "DD.MM.YYYY" "DD.MM.YYYY"` where:
+ 4. Run script `sh generate.sh "DoNewAwesomeAim" "DD.MM.YYYY" "DD.MM.YYYY"` where:
 
 > 1-st arg (required): folder name
 >
