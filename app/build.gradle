@@ -9,6 +9,7 @@ android {
         versionCode 2
         versionName "1.1"
         buildConfigField "int", "DB_VERSION", "1"
+        resValue "string", "app_name", "DoSmthGreat"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,7 +37,19 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "DoSmthGreat-${variant.buildType.name}-${variant.versionName}.apk"
+            outputFileName = "_DoSmthGreat-${variant.buildType.name}-${variant.versionName}.apk"
+        }
+        //noinspection GrDeprecatedAPIUsage
+        if (!variant.getBuildType().debuggable) {
+            variant.assemble.doLast {
+                copy {
+                    from variant.mappingFile
+                    into "${rootDir}/app/release"
+                    rename { String fileName ->
+                        "DoSmthGreat-mapping.txt"
+                    }
+                }
+            }
         }
     }
 }

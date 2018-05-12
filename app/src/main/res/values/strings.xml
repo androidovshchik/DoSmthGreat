@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">DoSmthGreat</string>
     <string name="slogan">Do something great today!</string>
     <string name="comment">Please, write a comment today!</string>
     <string name="comment_date">Comment at %1$s</string>

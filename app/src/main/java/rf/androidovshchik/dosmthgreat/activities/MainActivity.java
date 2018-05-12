@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             fileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             fileIntent.setDataAndType(Uri.fromFile(storage.getFile(path)),
                 mimeType.getMimeTypeFromExtension(extension));
-            startActivity(Intent.createChooser(fileIntent, getString(R.string.app_name)));
+            startActivity(Intent.createChooser(fileIntent, AppUtil.getName(getApplicationContext())));
         } else {
             // check for TTS data
             Intent intentTTS = new Intent();
