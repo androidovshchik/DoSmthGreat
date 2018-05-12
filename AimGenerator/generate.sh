@@ -11,6 +11,7 @@ elif [ "$#" -ne 1 ]; then
 fi
 mkdir -p "$1"
 find "./$1" -name "*.apk" -type f -delete
+find "./$1" -name "*-mapping.txt" -type f -delete
 alias=`echo "$1" | sed "s/[^a-zA-Z0-9.]/d/g" | tr 'A-Z' 'a-z'`
 # package name must start with letter (not number e.g.)
 packageName=rf.androidovshchik.i$alias
@@ -27,9 +28,8 @@ rm -f app/certificate.jks
 keytool -genkey -noprompt -keystore app/certificate.jks -alias $alias -storepass $alias \
     -keypass $alias -dname "c=RU" -keyalg RSA -keysize 2048 -validity 10000 2>/dev/null
 echo \> Building new apk
-./gradlew assembleRelease -Pandroid.injected.signing.store.password=$alias \
-    -Pandroid.injected.signing.key.alias=$alias \
-    -Pandroid.injected.signing.key.password=$alias 2>/dev/null | grep -F ":app:"
+./gradlew assembleRelease -PstoreFile="certificate.jks" -PstorePassword=$alias \
+    -PkeyAlias=$alias -PkeyPassword=$alias
 rm -f app/certificate.jks
 echo \> Moving files
 cp -f app/buildCopyForAimGenerator.txt app/build.gradle

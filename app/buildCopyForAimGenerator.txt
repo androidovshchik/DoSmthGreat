@@ -12,11 +12,36 @@ android {
         resValue "string", "app_name", "DoSmthGreat"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        def getStore = { ->
+            def result = project.hasProperty('storeFile') ? storeFile : "null"
+            return result
+        }
+        def getStorePassword = { ->
+            def result = project.hasProperty('storePassword') ? storePassword : ""
+            return result
+        }
+        def getKeyAlias = { ->
+            def result = project.hasProperty('keyAlias') ? keyAlias : ""
+            return result
+        }
+        def getKeyPassword = { ->
+            def result = project.hasProperty('keyPassword') ? keyPassword : ""
+            return result
+        }
+        release {
+            storeFile file(getStore())
+            storePassword getStorePassword()
+            keyAlias getKeyAlias()
+            keyPassword getKeyPassword()
+        }
+    }
     buildTypes {
         release {
             shrinkResources true
             minifyEnabled true
             useProguard true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
