@@ -40,7 +40,7 @@ Tested only on Linux 64bit :heart:
 
 Your are done! Copy this folder to device on home dir and install it's apk
 
-*Note!* the package name depends on folder name. So if there will be later a new version of apk then it's easy to update an existing app without deletion of data
+*Note!* **package name and signature** depend on folder name. So it must be permanent. As a bonus if there will be later a new version of apk then it's easy to update an existing app without deletion of data
 
 [1]: https://github.com/androidovshchik/DoSmthGreat/archive/master.zip
 
