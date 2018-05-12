@@ -29,7 +29,7 @@ keytool -genkey -noprompt -keystore app/certificate.jks -alias $alias -storepass
 echo \> Building new apk
 ./gradlew assembleRelease -Pandroid.injected.signing.store.password=$alias \
     -Pandroid.injected.signing.key.alias=$alias \
-    -Pandroid.injected.signing.key.password=$alias
+    -Pandroid.injected.signing.key.password=$alias 2>/dev/null | grep -F ":app:"
 rm -f app/certificate.jks
 echo \> Moving files
 cp -f app/buildCopyForAimGenerator.txt app/build.gradle
