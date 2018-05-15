@@ -13,8 +13,6 @@ import timber.log.Timber;
 
 public class DbCallback extends SupportSQLiteOpenHelper.Callback {
 
-    private static final String DB_PATH_SUFFIX = "/databases/";
-
     private static final int DB_VERSION = 1;
 
     public static final String BASE_NAME = "base.db";
@@ -49,12 +47,13 @@ public class DbCallback extends SupportSQLiteOpenHelper.Callback {
 
     private void copyDb(Context context, String externalPath, String internalName) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(externalPath);
-        File dbFolder = new File(context.getApplicationInfo().dataDir + DB_PATH_SUFFIX);
+        File dbFolder = new File(context.getApplicationInfo().dataDir + File.separator + "databases");
         if (!dbFolder.exists() && !dbFolder.mkdirs()) {
             Timber.w("Unable to create database path");
             return;
         }
-        FileOutputStream fileOutputStream = new FileOutputStream(dbFolder.getPath() + internalName);
+        FileOutputStream fileOutputStream = new FileOutputStream(dbFolder.getPath() +
+            File.separator + internalName);
         try {
             int length;
             byte[] buffer = new byte[1024];
