@@ -4,26 +4,27 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +62,6 @@ import rf.androidovshchik.dosmthgreat.services.UpgradeService;
 import rf.androidovshchik.dosmthgreat.utils.AlarmUtil;
 import rf.androidovshchik.dosmthgreat.utils.AppUtil;
 import rf.androidovshchik.dosmthgreat.utils.ServiceUtil;
-import rf.androidovshchik.dosmthgreat.utils.ViewUtil;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_TTS = 1;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @BindView(R.id.actionDays)
     CountAnimationTextView actionDays;
     @BindView(R.id.allDays)
@@ -84,15 +87,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
-    @BindView(R.id.actionsBar)
-    HorizontalScrollView actionsBar;
-    @BindView(R.id.buttonsContainer)
-    LinearLayout buttonsContainer;
-    @BindView(R.id.zero)
-    AppCompatButton zero;
-
+    @BindView(R.id.bottom_sheet)
+    NestedScrollView bottomSheet;
     @BindView(R.id.words)
     TextView words;
+
+    private BottomSheetBehavior sheetBehavior;
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -104,7 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Storage storage;
 
+    private MenuItem addItem;
+    private MenuItem upgradeItem;
+
     private boolean hasSetupNextAlarm = false;
+
+    private int undoActions = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,9 +117,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setTitle(AppUtil.getName(getApplicationContext()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getSupportActionBar() != null) {
-            getSupportActionBar().setElevation(0f);
-        }
+        setSupportActionBar(toolbar);
         preferences = new Preferences(getApplicationContext());
         storage = new Storage(getApplicationContext());
         adapter = new PagerAdapter(getApplicationContext(), getSupportFragmentManager());
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 onSelectedPage(true, false, false);
             }
         });
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
         Intent intent = getIntent();
         if (intent.hasExtra(KEY_DAY)) {
             writeComment(intent.getStringExtra(KEY_DAY));
@@ -171,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
             }
             preferences.putInt(Preferences.ADMOB_COUNT, admobCount);
         }
-        buttonsContainer.post(this::scrollButtons);
         Dexter.withActivity(this)
             .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
             .withListener(new MultiplePermissionsListener() {
@@ -190,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Intent intent = getIntent();
                         if (intent.hasExtra(KEY_WORD)) {
+                            toggleBottomSheet(false);
                             words.setText(Html.fromHtml(intent.getStringExtra(KEY_WORD)));
                             intent.removeExtra(KEY_WORD);
                             setStartFragment();
@@ -210,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                                     } finally {
                                         cursor.close();
                                     }
+                                    toggleBottomSheet(false);
                                     words.setText(Html.fromHtml(best.toString()));
                                     setStartFragment();
                                 }));
@@ -297,27 +302,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.zero)
-    void onZero(Button button) {
-        int count = Integer.parseInt(button.getText().toString());
-        if (count == 0) {
-            scrollButtons();
-            return;
-        }
-        setActionsCount(Record.FORMAT.format(new Date()), count, "0");
-    }
-
-    @OnClick({R.id.plus1, R.id.plus2, R.id.plus3, R.id.plus5, R.id.plus10, R.id.plus20, R.id.plus30, R.id.plus50})
-    void onPlus(Button button) {
-        int count = Integer.parseInt(button.getText().toString());
-        setActionsCount(Record.FORMAT.format(new Date()), count, String.valueOf(-1 * count));
-    }
-
-    private void scrollButtons() {
-        actionsBar.scrollTo(Math.abs(buttonsContainer.getWidth() -
-            ViewUtil.getWindow(getApplicationContext()).x) / 2, 0);
-    }
-
     @SuppressWarnings("all")
     private void setActionsCount(String day, int count, String zeroValue) {
         if (manager.isDbClosed() && !manager.openDb(getApplicationContext(), DbCallback.BASE_NAME)) {
@@ -341,8 +325,7 @@ public class MainActivity extends AppCompatActivity {
                     manager.onInsertRow(new Record(day, count))
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((Row row) -> {
-                            zero.setText(zeroValue);
-                            scrollButtons();
+                            //zero.setText(zeroValue);
                             onSelectedPage(false, true, false);
                         });
                 } else {
@@ -353,8 +336,7 @@ public class MainActivity extends AppCompatActivity {
                     manager.onUpdateRow(record)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((Integer value) -> {
-                            zero.setText(zeroValue);
-                            scrollButtons();
+                            //zero.setText(zeroValue);
                             onSelectedPage(false, true, false);
                         });
                 }
@@ -374,6 +356,7 @@ public class MainActivity extends AppCompatActivity {
                     if (cursor.moveToFirst()) {
                         Word word = new Word();
                         word.parseCursor(cursor);
+                        toggleBottomSheet(false);
                         words.setText(Html.fromHtml(word.word));
                     }
                 } finally {
@@ -383,19 +366,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                Rect outRect = new Rect();
+                bottomSheet.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        for (int v = 0; v < buttonsContainer.getChildCount(); v++) {
-            buttonsContainer.getChildAt(v).setEnabled(true);
-        }
-        menu.findItem(R.id.menu_comment)
-            .setVisible(true);
+        addItem = menu.findItem(R.id.menu_add);
+        upgradeItem = menu.findItem(R.id.menu_refresh);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Integer actions = null;
         switch (item.getItemId()) {
+            case R.id.menu_zero:
+                if (actions == null) {
+                    actions = 0;
+                }
+            case R.id.menu_plus1:
+                if (actions == null) {
+                    actions = 1;
+                }
+            case R.id.menu_plus3:
+                if (actions == null) {
+                    actions = 3;
+                }
+            case R.id.menu_plus5:
+                if (actions == null) {
+                    actions = 5;
+                }
+            case R.id.menu_plus15:
+                if (actions == null) {
+                    actions = 15;
+                }
+                setActionsCount(Record.FORMAT.format(new Date()), actions, String.valueOf(-1 * actions));
+                return true;
             case R.id.menu_refresh:
                 ServiceUtil.startServiceRightWay(getApplicationContext(), UpgradeService.class, null);
                 return true;
@@ -490,6 +507,18 @@ public class MainActivity extends AppCompatActivity {
         } else {
             interstitialAd.loadAd(new AdRequest.Builder()
                 .build());
+        }
+    }
+
+    private void toggleBottomSheet(boolean hide) {
+        if (hide) {
+            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        } else {
+            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
         }
     }
 

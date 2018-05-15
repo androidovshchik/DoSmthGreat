@@ -18,11 +18,11 @@
     <string name="menu_star">Star app</string>
     <string name="menu_information">Information</string>
 
-    <string name="add_zero">0 action</string>
+    <string name="add_zero">%1$d actions</string>
     <string name="add_plus1">+1 action</string>
-    <string name="add_plus3">+3 action</string>
-    <string name="add_plus5">+5 action</string>
-    <string name="add_plus15">+15 action</string>
+    <string name="add_plus3">+3 actions</string>
+    <string name="add_plus5">+5 actions</string>
+    <string name="add_plus15">+15 actions</string>
 
     <string name="task_action">Action</string>
     <string name="task_comment">Comment</string>
