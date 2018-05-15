@@ -49,7 +49,12 @@ public class DbCallback extends SupportSQLiteOpenHelper.Callback {
 
     private void copyDb(Context context, String externalPath, String internalName) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(externalPath);
-        FileOutputStream fileOutputStream = new FileOutputStream(getDbPath(context, internalName));
+        File dbFolder = new File(context.getApplicationInfo().dataDir + DB_PATH_SUFFIX);
+        if (!dbFolder.exists() && !dbFolder.mkdirs()) {
+            Timber.w("Unable to create database path");
+            return;
+        }
+        FileOutputStream fileOutputStream = new FileOutputStream(dbFolder.getPath() + internalName);
         try {
             int length;
             byte[] buffer = new byte[1024];
@@ -61,9 +66,5 @@ public class DbCallback extends SupportSQLiteOpenHelper.Callback {
             fileOutputStream.close();
             fileInputStream.close();
         }
-    }
-
-    private String getDbPath(Context context, String name) {
-        return context.getApplicationInfo().dataDir + DB_PATH_SUFFIX + name;
     }
 }
