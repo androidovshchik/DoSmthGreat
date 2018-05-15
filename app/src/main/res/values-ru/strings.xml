@@ -11,10 +11,17 @@
     <string name="result_actions">Всего действий: %1$d</string>
     <string name="result_conclusion">Так держать!</string>
 
+    <string name="menu_add">Добавить действие(я)</string>
     <string name="menu_refresh">Обновить бд</string>
     <string name="menu_comment">Написать комментарий</string>
     <string name="menu_star">Оценить приложение</string>
     <string name="menu_information">Информация</string>
+
+    <string name="add_zero">0 действий</string>
+    <string name="add_plus1">+1 действие</string>
+    <string name="add_plus3">+3 действия</string>
+    <string name="add_plus5">+5 действий</string>
+    <string name="add_plus15">+15 действий</string>
 
     <string name="task_action">Действие</string>
     <string name="task_comment">Комментарий</string>

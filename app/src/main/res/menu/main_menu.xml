@@ -2,6 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_settings"
+        android:title="@string/menu_add"
+        android:icon="@drawable/ic_add_white_24dp"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_zero"
+                android:title="@string/add_zero" />
+            <item
+                android:id="@+id/menu_plus1"
+                android:title="@string/add_plus1" />
+            <item
+                android:id="@+id/menu_plus3"
+                android:title="@string/add_plus3" />
+            <item
+                android:id="@+id/menu_plus5"
+                android:title="@string/add_plus5" />
+            <item
+                android:id="@+id/menu_plus15"
+                android:title="@string/add_plus15" />
+        </menu>
+    </item>
+    <item
         android:id="@+id/menu_refresh"
         android:title="@string/menu_refresh"
         app:showAsAction="never"/>
